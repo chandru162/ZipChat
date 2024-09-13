@@ -1,0 +1,22 @@
+
+.home-div-parant{
+    background-color: rgba(0, 255, 0, 0.493);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width: 100vw;
+    gap: 10px;
+    flex-direction: column;
+}
+
+.home-div-parant .log-in-btn{
+   background-color: whitesmoke;
+   color: rgb(0, 107, 0);
+   width: 100px;
+   height: 30px;
+   border-color: green;
+   border-radius: 20px;
+   font-size: 20px;
+   font-weight: bold;
+}

@@ -1,0 +1,202 @@
+.side-bar{
+    width: auto;
+    height: 600px;
+    /* background-color: rgb(9, 255, 0); */
+    border-radius: 20px;
+    border: 5px solid rgb(72, 255, 0);
+    margin-left: 20px;
+
+
+}
+.main-bar {
+    width: 900px;
+    height: 600px;
+    border: 5px solid rgb(21, 255, 0);
+    background-color:whitesmoke;
+    border-radius: 20px;
+}
+.main-div{
+    display: flex;
+    flex-direction: row;
+    gap: 3px;
+    /* background-color: red;
+    height: 100vh;
+    width: 100vw; */
+}
+
+.friends-div{
+    width: 370px;
+    height:87.5%;
+    /* border: 3px solid #dfdfdf; */
+    border-radius: 16px;
+    margin-top: 75px;
+    margin-left: 3px;
+    background-color: whitesmoke;
+}
+.top-div{
+    width: 370px;
+    height: 10%;
+    /* border: 1px solid black; */
+    border-radius: 17px;
+    margin-left: 3px;
+    margin-top: 5px;
+    background-color: whitesmoke;
+    box-shadow: 1px 2px 4px rgb(179, 179, 179);
+    position: absolute;
+    display: flex;
+}
+
+.top-div > input{
+   width: 160px;
+   height: 25px;
+margin-left: 15px;
+margin-top: 15px;
+border-radius: 20px;
+border: 1px solid black;
+
+
+}
+.top-div > #search-button{
+   width: 60px;
+   height: 30px;
+   margin-left: 5px;
+   margin-top: 15px;
+   border-radius: 20px;
+   border: 1px solid black;
+   background-color: rgb(90, 255, 90);
+   margin-right: 5px;
+}
+
+#add-friends{
+    height: 50px;
+    position: relative;
+    /* top: -15px; */
+    border-radius: 20px;
+    background-color: rgb(109, 255, 109);
+    border: 1px solid black;
+    margin-left: 5px;
+    margin-top: 2px;
+}
+#add-group{
+    height: 50px;
+        position: relative;
+        /* top: -15px; */
+        border-radius: 20px;
+            background-color: rgb(103, 255, 103);
+            border: 1px solid black;
+            margin-left: 5px;
+            margin-top: 2px;
+}
+
+
+ #msg-div {
+/* border: 1px solid black; */
+  /* position: relative; */
+  /* top: 458px; */
+  height: 70px;
+  border-radius: 20px;
+  gap: 5px;
+  display: flex ;
+  flex-direction: row;
+  background-color: rgba(194, 192, 192, 0.493);
+  box-shadow: 1px 5px 1px inset rgb(255, 255, 255);
+}
+
+.main-bar > #msg-div> #text-box,.send-button{
+   margin-top: 20px;
+   border-radius: 20px;
+   border: 1px solid rgb(182, 182, 182);
+   
+}
+
+.main-bar > #msg-div > #text-box{
+    width: 780px;
+    height: 34px;
+    margin-left: 40px;
+}
+.main-bar>#msg-div>.send-button{
+    width: 100px;
+    height: 40px;
+    background-color: rgb(0, 255, 0);
+    font-size: 20px;
+}
+
+.main-bar >.name-div{
+    position: absolute;
+    width: 900px;
+    height: 4rem;
+    background-color: rgb(240, 240, 240);
+    border-radius: 20px;
+    box-shadow: 1px 2px 4px rgb(177, 177, 177);
+    
+    
+
+}
+
+ .main-bar >#view-div{
+    background-color: whitesmoke;
+    height: 460px;
+    margin-top: 68px;
+}
+
+#view-div{
+    display: flex;
+    flex-direction: column;
+    /* text-align: center; */
+    /* padding-right: 10px; */
+    /* justify-content: flex-end; */
+    /* margin-left: 650px; */
+    width: 900px;
+    /* overflow: hidden; */
+    overflow-y: scroll;
+
+    /* padding: 10px; */
+    
+}
+
+#view-div-child{
+   /* background-color: rgb(158, 216, 156); */
+   margin-top: 5px;
+   display: flex;
+   width: auto;
+   height: auto;
+   max-width: 500px;
+   padding: 5px;
+   padding-left: 20px;
+   padding-right: 30px;
+   flex-wrap: wrap;   
+   display: inline-block;
+   text-align: left;
+
+   
+}
+
+#view-div-child > li{
+    list-style: none;
+
+}
+.sender{
+    background-color: rgba(0, 255, 21, 0.473);
+    position: relative;
+    right: 20px;
+    align-self: flex-end;
+    border-radius: 50px 50px 0px 50px;
+    box-shadow: 1px 1px 3px rgb(194, 194, 194);
+   
+}
+.receiver > #nameli{
+    color: red;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+.sender>#nameli {
+    color: rgb(57, 43, 255);
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+.receiver{
+    background-color: #ffffff;
+    align-self: flex-start;
+    border-radius: 0px 50px 50px 50px;
+    margin-left: 25px;
+   /* color: white; */
+   box-shadow: 1px 1px 3px rgb(194, 194, 194);
+}

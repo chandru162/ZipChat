@@ -1,0 +1,28 @@
+{
+  "name": "ZipChat",
+  "version": "1.0.0",
+  "description": "zipchat chat application for real time chat",
+  "main": "index.js",
+  "scripts": {
+    "start":"nodemon app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+    
+    
+  },
+  "keywords": [],
+  "author": "Chandru-162",
+  "license": "ISC",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.5.3",
+    "nodemailer": "^6.9.14",
+    "nodemon": "^3.1.4",
+    "socket.io": "^4.7.5",
+    "soket.io": "^0.0.1-security",
+    "uuid": "^10.0.0"
+  }
+}

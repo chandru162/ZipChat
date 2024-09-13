@@ -1,0 +1,294 @@
+﻿Chat Application Mind Map
+
+1. User Management
+
+User Authentication
+Sign Up
+Login
+Password Recovery
+User Profiles
+Profile Picture
+Status => online/offline
+Contact Information
+
+2. Messaging
+
+Real-time Messaging
+One-on-One Chats
+Group Chats
+Media Sharing
+Images
+Videos
+Files
+Message Reactions
+Emojis
+Likes
+
+3. Communication Features
+
+Voice Calls
+Video Calls
+Voice Messages
+
+4. Security
+
+End-to-End Encryption
+Data Privacy
+User Block/Report
+
+5. Notifications
+
+Push Notifications
+In-App Notifications
+
+6. Search and Filters
+
+Search Messages
+Search Contacts
+Filter by Media Type
+
+7. Additional Features
+
+Chatbots
+Status Updates
+Themes and 
+
+8. Backend Infrastructure
+
+Database
+User Data
+Message Data
+APIs
+Authentication API
+Messaging API
+Real-time Communication
+WebSockets
+Socket.io
+
+9. Frontend Development
+
+UI/UX Design
+User Interface
+User Experience
+Frameworks
+React
+Angular
+Vue.js
+
+10. Deployment and Maintenance
+
+Hosting
+AWS
+Google Cloud
+Azure
+Monitoring
+Performance Tracking
+Error Logging
+Updates
+Bug Fixes
+Feature Enhancements
+---------------------------------------------------------
+
+mkdir chat-app
+cd chat-app
+npm init -y
+npm install express mongoose socket.io bcryptjs jsonwebtoken
+
+
+
+
+const express = require('express');
+const http = require('http');
+const socketIO = require('socket.io');
+const mongoose = require('mongoose');
+const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
+
+
+const app = express();
+const server = http.createServer(app);
+const io = socketIO(server);
+
+
+// Connect to MongoDB
+mongoose.connect('your_mongodb_uri', { useNewUrlParser: true, useUnifiedTopology: true });
+
+
+// Middleware
+app.use(express.json());
+
+
+// User Schema
+const userSchema = new mongoose.Schema({
+  username: String,
+  password: String,
+});
+
+
+const User = mongoose.model('User', userSchema);
+
+
+// Message Schema
+const messageSchema = new mongoose.Schema({
+  user: String,
+  text: String,
+  timestamp: { type: Date, default: Date.now },
+});
+
+
+const Message = mongoose.model('Message', messageSchema);
+
+
+// Routes
+app.post('/signin', async (req, res) => {
+  const { username, password } = req.body;
+  const hashedPassword = await bcrypt.hash(password, 10);
+  const user = new User({ username, password: hashedPassword });
+  await user.save();
+  res.status(201).send('User registered');
+});
+
+
+app.get('/login', async (req, res) => {
+  const { username, password } = req.body;
+  const user = await User.findOne({ username });
+  if (user && await bcrypt.compare(password, user.password)) {
+    const token = jwt.sign({ userId: user._id }, 'your_jwt_secret');
+    res.json({ token });
+  } else {
+    res.status(401).send('Invalid credentials');
+  }
+});
+
+
+// Socket.io for real-time messaging
+io.on('connection', (socket) => {
+  console.log('User connected:', socket.id);
+
+
+  socket.on('chat message', async (data) => {
+    const message = new Message({ user: data.user, text: data.message });
+    await message.save();
+    io.emit('chat message', data);
+  });
+
+
+  socket.on('disconnect', () => {
+    console.log('User disconnected:', socket.id);
+  });
+});
+
+
+const PORT = 3000;
+server.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
+});
+
+
+
+
+npx create-react-app client
+cd client
+npm install socket.io-client axios
+
+
+
+
+import React, { useState, useEffect } from 'react';
+import io from 'socket.io-client';
+import axios from 'axios';
+
+
+const socket = io('http://localhost:3000');
+
+
+const Chat = () => {
+  const [messages, setMessages] = useState([]);
+  const [message, setMessage] = useState('');
+  const [username, setUsername] = useState('');
+  const [loggedIn, setLoggedIn] = useState(false);
+
+
+  useEffect(() => {
+    socket.on('chat message', (data) => {
+      setMessages((prevMessages) => [...prevMessages, data]);
+    });
+  }, []);
+
+
+  const sendMessage = () => {
+    socket.emit('chat message', { user: username, message });
+    setMessage('');
+  };
+
+
+  const register = async () => {
+    await axios.post('http://localhost:3000/register', { username, password: 'password' });
+    setLoggedIn(true);
+  };
+
+
+  const login = async () => {
+    const response = await axios.post('http://localhost:3000/login', { username, password: 'password' });
+    if (response.data.token) {
+      setLoggedIn(true);
+    }
+  };
+
+
+  return (
+    <div>
+      {!loggedIn ? (
+        <div>
+          <input type="text" placeholder="Username" value={username} onChange={(e) => setUsername(e.target.value)} />
+          <button onClick={register}>Register</button>
+          <button onClick={login}>Login</button>
+        </div>
+      ) : (
+        <div>
+          <ul>
+            {messages.map((msg, index) => (
+              <li key={index}><strong>{msg.user}:</strong> {msg.message}</li>
+            ))}
+          </ul>
+          <input type="text" value={message} onChange={(e) => setMessage(e.target.value)} />
+          <button onClick={sendMessage}>Send</button>
+        </div>
+      )}
+    </div>
+  );
+};
+
+
+export default Chat;
+
+
+
+
+
+
+import React from 'react';
+import Chat from './Chat';
+
+
+const App = () => {
+  return (
+    <div>
+      <h1>Chat Application</h1>
+      <Chat />
+    </div>
+  );
+};
+
+
+export default App;
+
+
+
+
+
+
+cd ..
+node app.js
+cd client
+npm start
